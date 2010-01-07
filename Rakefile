@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/fistfvck/e4u-encode"
     gem.authors = ["fistfvck"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "e4u"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -43,3 +44,7 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+desc "update misc datas"
+task :update => %w(update:docomo update:google update:kddi update:softbank)
+load 'tasks/tables.rake'
