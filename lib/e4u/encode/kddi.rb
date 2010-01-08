@@ -6,6 +6,7 @@ module E4U
       autoload :Unicode, 'e4u/encode/kddi/unicode'
 
       def self.encode str, from, to
+        raise unless from[:carrier] == :kddi
         if to[:carrier] == :kddi
           encode_carrier(str, from, to)
         else
