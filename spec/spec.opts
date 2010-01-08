@@ -1,3 +1,4 @@
 --color
 --format specdoc
 --diff
+--loadby mtime

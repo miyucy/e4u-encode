@@ -131,6 +131,38 @@ describe E4U do
         end
       end
     end
+
+    context "DoCoMo <=> KDDI" do
+      before :all do
+        emoji = E4U.google.find{ |e| e[:docomo].nil? != e[:kddi].nil? }
+        @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+      end
+
+      it "該当する絵文字がなければ、fallback_textを出力すること" do
+        E4U.encode(@kddi, :utf8, :kddi => :docomo).should == @docomo
+      end
+
+      it "fallback_textは絵文字に変換しないこと" do
+        E4U.encode(@docomo, :utf8, :docomo => :kddi).should_not == @kddi
+      end
+    end
+
+    context "DoCoMo <=> Softbank" do
+      before :all do
+        emoji = E4U.google.find{ |e| e[:docomo].nil? != e[:softbank].nil? }
+        @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+      end
+
+      it "該当する絵文字がなければ、fallback_textを出力すること" do
+        E4U.encode(@docomo, :utf8, :docomo => :softbank).should == @softbank
+      end
+
+      it "fallback_textは絵文字に変換しないこと" do
+        E4U.encode(@softbank, :utf8, :softbank => :docomo).should_not == @docomo
+      end
+    end
   end
 
   it "detect"
