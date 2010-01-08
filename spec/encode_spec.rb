@@ -32,6 +32,24 @@ describe E4U::Encode do
       }.should raise_error ArgumentError
     end
 
+    it "NoMethodErrorではなくArgumentErrorが発生すること" do
+      lambda{
+        E4U::Encode.convert('', :docomo)
+      }.should_not raise_error NoMethodError
+
+      lambda{
+        E4U::Encode.convert('', :docomo)
+      }.should raise_error ArgumentError
+
+      lambda{
+        E4U::Encode.convert('', :sjis)
+      }.should_not raise_error NoMethodError
+
+      lambda{
+        E4U::Encode.convert('', :sjis)
+      }.should raise_error ArgumentError
+    end
+
     it "非対応なキャリアを渡すとArgumentErrorが発生する" do
       lambda{
         E4U::Encode.convert('', :emobile, :sjis => :sjis)

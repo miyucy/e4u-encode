@@ -32,6 +32,10 @@ module E4U
         option = args.first.update(lonely_option => lonely_option)
       end
 
+      unless option.is_a? ::Hash
+        option = { option => option }
+      end
+
       from, to = {}, {}
 
       option.each do |k, v|
