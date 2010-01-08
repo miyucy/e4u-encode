@@ -136,7 +136,9 @@ describe E4U do
       before :all do
         emoji = E4U.google.find{ |e| e[:docomo].nil? != e[:kddi].nil? }
         @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
         @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+        @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
       end
 
       it "該当する絵文字がなければ、fallback_textを出力すること" do
@@ -152,7 +154,9 @@ describe E4U do
       before :all do
         emoji = E4U.google.find{ |e| e[:docomo].nil? != e[:softbank].nil? }
         @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
         @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+        @softbank.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
       end
 
       it "該当する絵文字がなければ、fallback_textを出力すること" do

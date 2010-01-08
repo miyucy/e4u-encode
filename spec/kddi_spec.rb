@@ -99,27 +99,30 @@ describe E4U::Encode::KDDI do
           pending "only RUBY_VERSION >= '1.9.1'" unless RUBY_VERSION >= '1.9.1'
           str = "とある文字列の符号化方式＜エンコーディング＞"
           @to.update :encoding => :sjis
-          lambda {
-            E4U::Encode::KDDI.encode(str, @from, @to)
-          }.should change(str, :encoding).from('UTF-8').to('CP932')
+          E4U::Encode::KDDI.encode(str, @from, @to).encoding.should == Encoding::Windows_31J
+          # lambda {
+          #   E4U::Encode::KDDI.encode(str, @from, @to)
+          # }.should change(str, :encoding).from(Encoding::UTF_8).to(Encoding::Windows_31J)
         end
 
         it "to[:encoding]が:utf8ならば、UTF-8な文字列が返ってくる" do
           pending "only RUBY_VERSION >= '1.9.1'" unless RUBY_VERSION >= '1.9.1'
           str = "とある文字列の符号化方式＜エンコーディング＞"
           @to.update :encoding => :utf8
-          lambda {
-            E4U::Encode::KDDI.encode(str, @from, @to)
-          }.should change(str, :encoding).from('UTF-8').to('UTF-8')
+          E4U::Encode::KDDI.encode(str, @from, @to).encoding.should == Encoding::UTF_8
+          # lambda {
+          #   E4U::Encode::KDDI.encode(str, @from, @to)
+          # }.should change(str, :encoding).from(Encoding::UTF_8).to(Encoding::UTF_8)
         end
 
         it "to[:encoding]が:unicodeならば、UTF-8な文字列が返ってくる" do
           pending "only RUBY_VERSION >= '1.9.1'" unless RUBY_VERSION >= '1.9.1'
           str = "とある文字列の符号化方式＜エンコーディング＞"
           @to.update :encoding => :utf8
-          lambda {
-            E4U::Encode::KDDI.encode(str, @from, @to)
-          }.should change(str, :encoding).from('UTF-8').to('UTF-8')
+          E4U::Encode::KDDI.encode(str, @from, @to).encoding.should == Encoding::UTF_8
+          # lambda {
+          #   E4U::Encode::KDDI.encode(str, @from, @to)
+          # }.should change(str, :encoding).from(Encoding::UTF_8).to(Encoding::UTF_8)
         end
       end
     end
