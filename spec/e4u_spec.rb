@@ -75,21 +75,60 @@ describe E4U do
 
     context "Google" do
       context "UTF-8な絵文字" do
-        it "Unicode数値文字参照に変換できること"
+        before :all do
+          @str = @utf8_str_ary.join @sun.google_emoji.utf8
+        end
 
-        it "UTF-8なDoCoMo絵文字に変換できること"
-        it "SJISなDoCoMo絵文字に変換できること"
+        it "Unicode数値文字参照に変換できること" do
+          unicode = @utf8_str_ary.join "&#x#{@sun.google_emoji.unicode};"
+          E4U.encode(@str, :google, :utf8 => :unicode).should == unicode
+        end
 
-        it "UTF-8なKDDI絵文字に変換できること"
-        it "SJISなKDDI絵文字に変換できること"
+        it "UTF-8なDoCoMo絵文字に変換できること" do
+          utf8 = @utf8_str_ary.join @sun.docomo_emoji.utf8
+          E4U.encode(@str, :utf8, :google => :docomo).should == utf8
+        end
 
-        it "UTF-8なSoftbank絵文字に変換できること"
-        it "SJISなSoftbank絵文字に変換できること"
-        it "WebcodeなSoftbank絵文字に変換できること"
+        it "SJISなDoCoMo絵文字に変換できること" do
+          sjis = @sjis_str_ary.join @sun.docomo_emoji.sjis
+          E4U.encode(@str, :utf8 => :sjis, :google => :docomo).should == sjis
+        end
+
+        it "UTF-8なKDDI絵文字に変換できること" do
+          utf8 = @utf8_str_ary.join @sun.kddi_emoji.utf8
+          E4U.encode(@str, :utf8, :google => :kddi).should == utf8
+        end
+
+        it "SJISなKDDI絵文字に変換できること" do
+          sjis = @sjis_str_ary.join @sun.kddi_emoji.sjis
+          E4U.encode(@str, :utf8 => :sjis, :google => :kddi).should == sjis
+        end
+
+        it "UTF-8なSoftbank絵文字に変換できること" do
+          utf8 = @utf8_str_ary.join @sun.softbank_emoji.utf8
+          E4U.encode(@str, :utf8, :google => :softbank).should == utf8
+        end
+
+        it "SJISなSoftbank絵文字に変換できること" do
+          sjis = @sjis_str_ary.join @sun.softbank_emoji.sjis
+          E4U.encode(@str, :utf8 => :sjis, :google => :softbank).should == sjis
+        end
+
+        it "WebcodeなSoftbank絵文字に変換できること" do
+          sjis = @sjis_str_ary.join "\x1B\x24\x47\x6A\x0F"
+          E4U.encode(@str, :utf8 => :webcode, :google => :softbank).should == sjis
+        end
       end
 
       context "Unicode数値文字参照" do
-        it "UTF-8なGoogle絵文字に変換できること"
+        before :all do
+          @str = @utf8_str_ary.join "&#x#{@sun.google_emoji.unicode};"
+        end
+
+        it "UTF-8なGoogle絵文字に変換できること" do
+          utf8 = @utf8_str_ary.join @sun.google_emoji.utf8
+          E4U.encode(@str, :google, :unicode => :utf8).should == utf8
+        end
       end
     end
   end
