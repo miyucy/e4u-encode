@@ -4,6 +4,7 @@ module Update
     def self.mk_google_unicode_docomo target
       File.open(target, 'wb') do |out|
         out.print ERB.new(<<'ERB', nil, '-').result
+# -*- coding:utf-8 -*-
 module E4U
   module Encode
     module Google
@@ -22,7 +23,7 @@ class E4U::Encode::Google::Unicode
 <%   else -%>
 <%     google = data.google_emoji -%>
 <%     text = google.text_fallback || google.text_repr || [0x3013].pack('U'); -%>
-    '<%= google.google %>' => <%= text.dump %>.freeze,
+    '<%= google.google %>' => "<%= text %>".freeze,
 <%   end -%>
 <% end -%>
   }.freeze
