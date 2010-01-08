@@ -48,7 +48,10 @@ module E4U
         raise ArgumentError
       end
 
-      [from, to]
+      [from, to].each do |e|
+        raise ArgumentError unless e.has_key? :carrier
+        raise ArgumentError unless e.has_key? :encoding
+      end
     end
 
     def self.convert_ str, from, to

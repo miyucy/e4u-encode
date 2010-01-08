@@ -22,6 +22,16 @@ describe E4U::Encode do
       }.should raise_error ArgumentError
     end
 
+    it "キャリアとエンコーディングが明示されないとArgumentErrorが発生する" do
+      lambda{
+        E4U::Encode.convert('', :docomo => :google)
+      }.should raise_error ArgumentError
+
+      lambda{
+        E4U::Encode.convert('', :sjis => :utf8)
+      }.should raise_error ArgumentError
+    end
+
     it "非対応なキャリアを渡すとArgumentErrorが発生する" do
       lambda{
         E4U::Encode.convert('', :emobile, :sjis => :sjis)
