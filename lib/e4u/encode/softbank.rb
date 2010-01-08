@@ -6,6 +6,7 @@ module E4U
       autoload :Unicode, 'e4u/encode/softbank/unicode'
 
       def self.encode str, from, to
+        raise unless from[:carrier] == :softbank
         if to[:carrier] == :softbank
           encode_carrier(str, from, to)
         else
