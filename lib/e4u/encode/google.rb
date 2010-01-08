@@ -5,6 +5,7 @@ module E4U
       autoload :Unicode, 'e4u/encode/google/unicode'
 
       def self.encode str, from, to
+        raise unless from[:carrier] == :google
         case from[:encoding]
         when :utf8
           from[:encoding] = :unicode
@@ -12,7 +13,7 @@ module E4U
         when :unicode
           encode_carrier str, from, to
         else
-          rase
+          raise
         end
       end
 
