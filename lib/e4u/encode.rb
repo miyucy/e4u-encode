@@ -11,6 +11,7 @@ module E4U
 
   module Encode
     def self.convert str, *args
+      return nil unless str
       return str if args.size == 0
       raise ArgumentError if args.size > 2
       from, to = parse_options(*args)
