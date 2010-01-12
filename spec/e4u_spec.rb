@@ -168,23 +168,75 @@ describe E4U do
       end
     end
 
-    context "複合絵文字を含む場合" do
-      context "KDDI => DoCoMo" do
-        before :all do
-          emoji = E4U.google.find{ |e| e[:docomo] =~ /\+/ && !e[:kddi].nil? }
-          @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
-          @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
-          @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
-          @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
-        end
+    context "DoCoMoの複合絵文字" do
+      it "KDDIに変換できること" do
+        emoji = E4U.google.find{ |e| e[:docomo] =~ /\+/ && !e[:kddi].nil? }
+        @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+        @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
 
-        it "DoCoMoからKDDIに変換できること" do
-          E4U.encode(@docomo, :utf8, :docomo => :kddi).should == @kddi
-        end
+        E4U.encode(@docomo, :utf8, :docomo => :kddi).should == @kddi
+        E4U.encode(@kddi, :utf8, :kddi => :docomo).should == @docomo
+      end
 
-        it "KDDIからDoCoMoに変換できること" do
-          E4U.encode(@kddi, :utf8, :kddi => :docomo).should == @docomo
-        end
+      it "Softbankに変換できること" do
+        emoji = E4U.google.find{ |e| e[:docomo] =~ /\+/ && !e[:softbank].nil? }
+        @docomo   = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+        @softbank.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+
+        E4U.encode(@docomo, :utf8, :docomo => :softbank).should == @softbank
+        E4U.encode(@softbank, :utf8, :softbank => :docomo).should == @docomo
+      end
+    end
+
+    context "KDDIの複合絵文字" do
+      it "DoCoMoに変換できること" do
+        emoji = E4U.google.find{ |e| e[:kddi] =~ /\+/ && !e[:docomo].nil? }
+        @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+        @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+
+        E4U.encode(@kddi, :utf8, :kddi => :docomo).should == @docomo
+        E4U.encode(@docomo, :utf8, :docomo => :kddi).should == @kddi
+      end
+
+      it "Softbankに変換できること" do
+        emoji = E4U.google.find{ |e| e[:kddi] =~ /\+/ && !e[:softbank].nil? }
+        @kddi     = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+        @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+        @softbank.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+
+        E4U.encode(@kddi, :utf8, :kddi => :softbank).should == @softbank
+        E4U.encode(@softbank, :utf8, :softbank => :kddi).should == @kddi
+      end
+    end
+
+    context "Softbankの複合絵文字" do
+      it "DoCoMoに変換できること" do
+        emoji = E4U.google.find{ |e| e[:softbank] =~ /\+/ && !e[:docomo].nil? }
+        @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+        @softbank.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @docomo   = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+        @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+
+        E4U.encode(@softbank, :utf8, :softbank => :docomo).should == @docomo
+        E4U.encode(@docomo, :utf8, :docomo => :softbank).should == @softbank
+      end
+
+      it "KDDIに変換できること" do
+        emoji = E4U.google.find{ |e| e[:softbank] =~ /\+/ && !e[:kddi].nil? }
+        @softbank = "#{emoji[:name]} #{emoji.softbank_emoji.utf8}"
+        @softbank.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        @kddi     = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+        @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+
+        E4U.encode(@softbank, :utf8, :softbank => :kddi).should == @kddi
+        E4U.encode(@kddi, :utf8, :kddi => :softbank).should == @softbank
       end
     end
   end
