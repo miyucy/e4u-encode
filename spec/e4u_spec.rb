@@ -167,6 +167,26 @@ describe E4U do
         E4U.encode(@softbank, :utf8, :softbank => :docomo).should_not == @docomo
       end
     end
+
+    context "複合絵文字を含む場合" do
+      context "KDDI => DoCoMo" do
+        before :all do
+          emoji = E4U.google.find{ |e| e[:docomo] =~ /\+/ && !e[:kddi].nil? }
+          @docomo = "#{emoji[:name]} #{emoji.docomo_emoji.utf8}"
+          @docomo.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+          @kddi   = "#{emoji[:name]} #{emoji.kddi_emoji.utf8}"
+          @kddi.encode('UTF-8') if RUBY_VERSION >= '1.9.1'
+        end
+
+        it "DoCoMoからKDDIに変換できること" do
+          E4U.encode(@docomo, :utf8, :docomo => :kddi).should == @kddi
+        end
+
+        it "KDDIからDoCoMoに変換できること" do
+          E4U.encode(@kddi, :utf8, :kddi => :docomo).should == @docomo
+        end
+      end
+    end
   end
 
   it "detect"

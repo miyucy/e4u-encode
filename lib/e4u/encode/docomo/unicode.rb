@@ -28,7 +28,7 @@ class E4U::Encode::DoCoMo::Unicode
   def self.to_google_unicode str
     puts "docomo_unicode_to_google_unicode" if $DEBUG
     str.gsub(GOOGLE_UNICODE_REGEXP) do |matched|
-      "&#x#{GOOGLE_UNICODE[$1]};"
+      GOOGLE_UNICODE[matched]
     end
   end
 end
