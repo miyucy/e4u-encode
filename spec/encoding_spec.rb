@@ -7,7 +7,7 @@ describe E4U::Encode::Encoding do
       it "SJIS文字列がUTF-8に変換されること" do
         utf8 = "とある文字列の符号化方式＜エンコーディング＞"
         sjis = NKF.nkf('-Wsm0x', utf8)
-        NKF.should_receive(:nkf).once.with('-Swm0x', sjis).and_return(utf8)
+        NKF.should_receive(:nkf).once.with('-m0wS --ic=CP932', sjis).and_return(utf8)
         E4U::Encode::Encoding.to_utf8(sjis)
       end
     else
@@ -32,7 +32,7 @@ describe E4U::Encode::Encoding do
       it "UTF-8文字列がSJISに変換されること" do
         utf8 = "とある文字列の符号化方式＜エンコーディング＞"
         sjis = NKF.nkf('-Wsm0x', utf8)
-        NKF.should_receive(:nkf).once.with('-Wsm0x', utf8).and_return(sjis)
+        NKF.should_receive(:nkf).once.with('-m0Ws --oc=CP932', utf8).and_return(sjis)
         E4U::Encode::Encoding.to_cp932(utf8)
       end
     else
