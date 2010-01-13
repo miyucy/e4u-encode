@@ -5,7 +5,7 @@ describe E4U do
   describe "encode" do
     before :all do
       @utf8_str_ary = %w(本日は 晴天 なり)
-      @sjis_str_ary = @utf8_str_ary.map { |e| NKF.nkf('-Wm0x --oc=CP932', e) }
+      @sjis_str_ary = @utf8_str_ary.map { |e| NKF.nkf("-Wsm0x --oc=CP932", e) }
       @sun = E4U.google.find{ |e| e[:id] == '000' }
     end
 
