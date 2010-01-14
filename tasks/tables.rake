@@ -25,6 +25,7 @@ namespace :update do
     'lib/e4u/encode/google/unicode/docomo_unicode.rb'   => 'tasks/mk_google_unicode_docomo.rb',
     'lib/e4u/encode/google/unicode/kddi_unicode.rb'     => 'tasks/mk_google_unicode_kddi.rb',
     'lib/e4u/encode/google/unicode/softbank_unicode.rb' => 'tasks/mk_google_unicode_softbank.rb',
+    'lib/e4u/encode/google/unicode/ketai_unicode.rb'    => 'tasks/mk_google_unicode_ketai.rb',
     'lib/e4u/encode/google/utf8/unicode.rb'             => 'tasks/mk_google_utf8.rb'
   }
 
@@ -63,6 +64,19 @@ namespace :update do
 
   namespace :softbank do
     softbank_files.each do |target, prereq|
+      file target => prereq, &maker
+    end
+  end
+
+  ketai_files = {
+    'lib/e4u/encode/ketai/unicode/google_unicode.rb' => 'tasks/mk_ketai_unicode.rb',
+  }
+
+  desc "update ketai datas"
+  task :ketai => ketai_files.keys
+
+  namespace :ketai do
+    ketai_files.each do |target, prereq|
       file target => prereq, &maker
     end
   end
