@@ -3,6 +3,7 @@ require 'e4u/encode/docomo'
 require 'e4u/encode/google'
 require 'e4u/encode/kddi'
 require 'e4u/encode/softbank'
+require 'e4u/encode/ketai'
 
 module E4U
   def self.encode str, *args
@@ -20,7 +21,7 @@ module E4U
 
     private
 
-    CARRIERS = [:docomo, :kddi, :softbank, :google,].freeze
+    CARRIERS = [:docomo, :kddi, :softbank, :google, :ketai].freeze
     ENCODINGS = [:sjis, :utf8, :unicode, :webcode].freeze
 
     def self.parse_options *args
@@ -70,6 +71,8 @@ module E4U
         str = KDDI.encode(str, from, to)
       when :softbank
         str = Softbank.encode(str, from, to)
+      when :ketai
+        str = Ketai.encode(str, from, to)
       else
         raise
       end

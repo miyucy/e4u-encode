@@ -30,6 +30,9 @@ module E4U
         when :softbank
           from[:carrier] = :softbank
           Unicode.to_softbank_unicode(str)
+        when :ketai
+          from[:carrier] = :ketai
+          Unicode.to_ketai_unicode(str)
         when :google
           if to[:encoding] == :utf8
             from[:encoding] = :utf8

@@ -46,5 +46,5 @@ Rake::RDocTask.new do |rdoc|
 end
 
 desc "update misc datas"
-task :update => %w(update:docomo update:google update:kddi update:softbank)
+task :update => %w(update:docomo update:google update:kddi update:softbank update:ketai)
 load 'tasks/tables.rake'

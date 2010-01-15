@@ -15,6 +15,10 @@ class E4U::Encode::Google::Unicode
     autoload konst, 'e4u/encode/google/unicode/softbank_unicode'
   end
 
+  %w(KETAI_UNICODE KETAI_UNICODE_REGEXP).each do |konst|
+    autoload konst, 'e4u/encode/google/unicode/ketai_unicode'
+  end
+
   def self.to_utf8 str
     puts "google_unicode_to_google_utf8" if $DEBUG
     str.gsub(UTF8_REGEXP) do |matched|
@@ -40,6 +44,13 @@ class E4U::Encode::Google::Unicode
     puts "google_unicode_to_softbank_unicode" if $DEBUG
     str.gsub(SOFTBANK_UNICODE_REGEXP) do |matched|
       SOFTBANK_UNICODE[$1.upcase]
+    end
+  end
+
+  def self.to_ketai_unicode str
+    puts "google_unicode_to_ketai_unicode" if $DEBUG
+    str.gsub(UTF8_REGEXP) do |matched|
+      KETAI_UNICODE[$1]
     end
   end
 end
