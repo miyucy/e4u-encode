@@ -7,6 +7,7 @@ describe E4U do
       @utf8_str_ary = %w(本日は 晴天 なり)
       @sjis_str_ary = @utf8_str_ary.map { |e| NKF.nkf("-Wsm0x --oc=CP932", e) }
       @sun = E4U.google.find{ |e| e[:id] == '000' }
+      @eid = "[e:%03X]" % [@sun[:id].hex]
     end
 
     context "DoCoMo" do
@@ -70,6 +71,11 @@ describe E4U do
           utf8 = @utf8_str_ary.join @sun.google_emoji.utf8
           E4U.encode(@str, :utf8, :docomo => :google).should == utf8
         end
+
+        it "UTF-8な絵文字IDに変換できること" do
+          utf8 = @utf8_str_ary.join @eid
+          E4U.encode(@str, :utf8, :docomo => :ketai).should == utf8
+        end
       end
     end
 
@@ -117,6 +123,11 @@ describe E4U do
         it "WebcodeなSoftbank絵文字に変換できること" do
           sjis = @sjis_str_ary.join "\x1B\x24\x47\x6A\x0F"
           E4U.encode(@str, :utf8 => :webcode, :google => :softbank).should == sjis
+        end
+
+        it "UTF-8な絵文字IDに変換できること" do
+          utf8 = @utf8_str_ary.join @eid
+          E4U.encode(@str, :utf8, :google => :ketai).should == utf8
         end
       end
 
