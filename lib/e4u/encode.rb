@@ -1,15 +1,15 @@
-require 'e4u/encode/encoding'
-require 'e4u/encode/docomo'
-require 'e4u/encode/google'
-require 'e4u/encode/kddi'
-require 'e4u/encode/softbank'
-
 module E4U
   def self.encode str, *args
     Encode.convert str, *args
   end
 
   module Encode
+    autoload :Encoding, 'e4u/encode/encoding'
+    autoload :DoCoMo,   'e4u/encode/docomo'
+    autoload :Google,   'e4u/encode/google'
+    autoload :KDDI,     'e4u/encode/kddi'
+    autoload :Softbank, 'e4u/encode/softbank'
+
     def self.convert str, *args
       return nil unless str
       return str if args.size == 0
