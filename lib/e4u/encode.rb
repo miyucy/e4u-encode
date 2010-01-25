@@ -21,7 +21,7 @@ module E4U
     private
 
     CARRIERS = [:docomo, :kddi, :softbank, :google,].freeze
-    ENCODINGS = [:sjis, :utf8, :unicode, :webcode].freeze
+    ENCODINGS = [:sjis, :utf8, :ncr, :webcode].freeze
 
     def self.parse_options *args
       raise ArgumentError unless (1..2).include? args.size

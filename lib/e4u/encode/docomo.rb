@@ -16,7 +16,7 @@ module E4U::Encode
     private
 
     def self.encode_carrier str, from, to
-      return encode_encoding(str, from, to) if from[:encoding] != :unicode
+      return encode_encoding(str, from, to) if from[:encoding] != :ncr
       case to[:encoding]
       when :sjis
         from[:encoding] = :sjis
@@ -32,12 +32,12 @@ module E4U::Encode
     def self.encode_encoding str, from, to
       case from[:encoding]
       when :sjis
-        from[:encoding] = :unicode
+        from[:encoding] = :ncr
         Encoding.to_utf8(Cp932.to_docomo_unicode(str))
       when :utf8
-        from[:encoding] = :unicode
+        from[:encoding] = :ncr
         Utf8.to_docomo_unicode(str)
-      when :unicode
+      when :ncr
         from[:carrier] = :google
         Unicode.to_google_unicode(str)
       else

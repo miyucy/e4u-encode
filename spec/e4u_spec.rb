@@ -22,7 +22,7 @@ describe E4U do
 
         it "Unicode数値文字参照に変換できること" do
           utf8 = @utf8_str_ary.join "&#x#{@sun.docomo_emoji.unicode};"
-          E4U.encode(@str, :docomo, :sjis => :unicode).should == utf8
+          E4U.encode(@str, :docomo, :sjis => :ncr).should == utf8
         end
       end
 
@@ -37,8 +37,8 @@ describe E4U do
         end
 
         it "Unicode数値文字参照に変換できること" do
-          unicode = @utf8_str_ary.join "&#x#{@sun.docomo_emoji.unicode};"
-          E4U.encode(@str, :docomo, :utf8 => :unicode).should == unicode
+          ncr = @utf8_str_ary.join "&#x#{@sun.docomo_emoji.unicode};"
+          E4U.encode(@str, :docomo, :utf8 => :ncr).should == ncr
         end
 
         it "UTF-8なKDDI絵文字に変換できること" do
@@ -80,8 +80,8 @@ describe E4U do
         end
 
         it "Unicode数値文字参照に変換できること" do
-          unicode = @utf8_str_ary.join "&#x#{@sun.google_emoji.unicode};"
-          E4U.encode(@str, :google, :utf8 => :unicode).should == unicode
+          ncr = @utf8_str_ary.join "&#x#{@sun.google_emoji.unicode};"
+          E4U.encode(@str, :google, :utf8 => :ncr).should == ncr
         end
 
         it "UTF-8なDoCoMo絵文字に変換できること" do
@@ -127,7 +127,7 @@ describe E4U do
 
         it "UTF-8なGoogle絵文字に変換できること" do
           utf8 = @utf8_str_ary.join @sun.google_emoji.utf8
-          E4U.encode(@str, :google, :unicode => :utf8).should == utf8
+          E4U.encode(@str, :google, :ncr => :utf8).should == utf8
         end
       end
     end
