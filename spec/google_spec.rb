@@ -14,23 +14,23 @@ describe E4U::Encode::Google do
       }.should raise_error
     end
 
-    it "from[:encoding]が:utf8、:unicode以外なら 例外が起こる" do
+    it "from[:encoding]が:utf8、:ncr以外なら 例外が起こる" do
       @from.update :carrier => :google, :encoding => :euc_jp
       lambda {
         E4U::Encode::Google.encode('', @from, @to)
       }.should raise_error
     end
 
-    it "from[:encoding]が:utf8なら :unicodeに変換される" do
+    it "from[:encoding]が:utf8なら :ncrに変換される" do
       @from.update :carrier => :google, :encoding => :utf8
       lambda {
         E4U::Encode::Google.encode('', @from, @to)
-      }.should change{ @from[:encoding] }.from(:utf8).to(:unicode)
+      }.should change{ @from[:encoding] }.from(:utf8).to(:ncr)
     end
 
-    context "from[:encoding]が:unicodeの時" do
+    context "from[:encoding]が:ncrの時" do
       before :all do
-        @from.update :encoding => :unicode
+        @from.update :encoding => :ncr
       end
 
       before :each do
@@ -64,18 +64,18 @@ describe E4U::Encode::Google do
         end
 
         before :each do
-          @from.update :encoding => :unicode
+          @from.update :encoding => :ncr
         end
 
         it "to[:encoding]が:utf8ならば、from[:encoding]も:utf8になる" do
           @to.update :encoding => :utf8
           lambda {
             E4U::Encode::Google.encode('', @from, @to)
-          }.should change{ @from[:encoding] }.from(:unicode).to(:utf8)
+          }.should change{ @from[:encoding] }.from(:ncr).to(:utf8)
         end
 
         it "to[:encoding]が:utf8以外ならば例外が起こる" do
-          @to.update :carrier => :unicode
+          @to.update :carrier => :ncr
           lambda {
             E4U::Encode::Google.encode('', @from, @to)
           }.should raise_error

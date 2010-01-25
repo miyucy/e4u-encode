@@ -7,9 +7,9 @@ module E4U::Encode
       raise unless from[:carrier] == :google
       case from[:encoding]
       when :utf8
-        from[:encoding] = :unicode
+        from[:encoding] = :ncr
         Utf8.to_google_unicode(str)
-      when :unicode
+      when :ncr
         encode_carrier str, from, to
       else
         raise
@@ -40,6 +40,5 @@ module E4U::Encode
         raise
       end
     end
-
   end
 end
